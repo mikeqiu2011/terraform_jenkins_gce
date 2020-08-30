@@ -20,6 +20,7 @@ resource "google_compute_instance" "vm_instance" {
     # A default network is created for all GCP projects
     network = google_compute_network.vpc_network.self_link
     access_config {
+      nat_ip = google_compute_address.vm_static_ip.address
     }
   }
   
@@ -46,4 +47,8 @@ resource "google_compute_firewall" "vpc_network" {
     protocol = "tcp"
     ports    = ["8080","22"]
   }
+}
+
+resource "google_compute_address" "vm_static_ip" {
+  name = "terraform-static-ip"
 }
