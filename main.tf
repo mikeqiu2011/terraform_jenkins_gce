@@ -7,7 +7,8 @@ provider "google" {
 resource "google_compute_instance" "vm_instance" {
   #name         = "terraform-instance"
   name         = "e2-standard-2"
-  machine_type = "f1-micro"
+  machine_type = var.instance_machine_type #using variable
+  allow_stopping_for_update = true
 
   boot_disk {
     initialize_params {
